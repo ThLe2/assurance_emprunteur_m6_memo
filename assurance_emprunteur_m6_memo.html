@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La tarification du risque</title>
+<style>
+:root{--prune:#8C1E70;--prune-fonce:#5E1349;--prune-clair:#F4E6EE;--accent:#C77BAA;
+ --vert:#283C28;--gris:#3C3C3C;--gris-moyen:#8A7A85;--filet:#E8DCE5;--creme:#FAF6F8;
+ --ok:#2F7A4F;--ko:#B23B3B;--amb:#B5852A;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--gris);
+ font-family:"Nunito","Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.62}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+header.bandeau{background:var(--prune-fonce);color:#fff;padding:18px 0;border-bottom:4px solid var(--accent)}
+header.bandeau .wrap{padding-bottom:0}
+.chapitre{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#EAD3E3}
+.chapitre span{color:var(--accent);margin:0 6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1.25;margin:8px 0 4px;color:#fff}
+.sous{color:#EAD3E3;font-size:14.5px;margin:0}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:var(--prune-fonce);
+ margin:34px 0 0;padding-bottom:8px;border-bottom:2px solid var(--filet)}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:15px;color:var(--vert);margin:20px 0 8px;letter-spacing:.02em}
+.carte{background:#fff;border:1px solid var(--filet);border-radius:10px;padding:20px 22px;margin:18px 0;
+ box-shadow:0 1px 2px rgba(94,19,73,.05)}
+.enc{background:var(--prune-clair);border-left:5px solid var(--prune);padding:14px 18px;
+ border-radius:0 8px 8px 0;margin:18px 0;font-size:15.2px}
+.enc .t{display:block;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+ font-weight:800;color:var(--prune-fonce);margin-bottom:6px}
+.enc.al{background:#FBF4F4;border-left-color:var(--ko)}.enc.al .t{color:var(--ko)}
+.enc.ci{background:#FCF8F0;border-left-color:var(--amb)}.enc.ci .t{color:#8A6418}
+.situ{background:#FCF9FB;border:1px dashed var(--filet);border-radius:8px;padding:16px 18px;margin:16px 0;font-size:15.2px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.duo>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:15px 17px;font-size:14.8px}
+.duo .h{font-weight:800;color:var(--prune-fonce);margin-bottom:7px;font-size:14.5px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.tri>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:14px 15px;font-size:14.3px}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.quad>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:12px 13px;font-size:13.6px}
+.quad .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13px;
+ text-transform:uppercase;letter-spacing:.04em}
+.tri .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13.5px;
+ text-transform:uppercase;letter-spacing:.05em}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.8px;background:#fff}
+th,td{border:1px solid var(--filet);padding:9px 12px;text-align:left}
+thead th{background:var(--prune-clair);color:var(--prune-fonce);font-size:13.5px}
+tbody th{font-weight:600;color:var(--gris)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td,tr.tot th{background:#FBF3F8;font-weight:800;color:var(--prune-fonce)}
+.dl{display:inline-flex;align-items:center;gap:9px;background:var(--prune);color:#fff;text-decoration:none;
+ padding:11px 20px;border-radius:8px;font-weight:700;font-size:15px;margin:20px 0 4px}
+.dl:hover{background:var(--prune-fonce)}
+ol.q{padding-left:0;list-style:none;counter-reset:q}
+ol.q>li{margin:16px 0;padding-left:38px;position:relative}
+ol.q>li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:1px;
+ width:26px;height:26px;border-radius:50%;background:var(--prune-clair);color:var(--prune-fonce);
+ font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+b,strong{color:var(--vert)}
+footer{text-align:center;font-size:12.5px;color:var(--gris-moyen);padding:26px 18px 12px;
+ border-top:1px solid var(--filet);margin-top:44px}
+@media(max-width:860px){.quad{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.duo,.tri,.quad{grid-template-columns:1fr}h1{font-size:22px}}
+@media print{body{background:#fff}.dl{display:none}header.bandeau{background:#5E1349 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head>
+<body>
+<header class="bandeau"><div class="wrap">
+ <div class="chapitre">IOBSP Niveau 2 · Journée 10 <span>/</span> Les assurances emprunteurs — Module 6</div><h1>La tarification du risque</h1><p class="sous">Fiche mémo détaillée — quand l'assurance fait échouer un dossier</p>
+</div></header>
+<div class="wrap">
+<a class="dl" href="J10_M6_Fiche_memo.pdf" download>⬇ Télécharger la fiche mémo (PDF)</a>
+<div class="carte">
+<div class="enc"><span class="t">LE CHIFFRE QUI OUVRE LE MODULE</span>Sur un prêt de 200 000 € sur 20 ans, l&#x27;assurance coûte entre 2 300 € et 34 600 € selon le profil de l&#x27;emprunteur. <b>UN RAPPORT DE UN À QUINZE</b> — pour le même prêt, la même durée, la même couverture.</div>
+</div>
+<h2><span class="num">1 ·</span>Ce qui entre dans le prix</h2>
+<div class="carte">
+<p>Contrairement au crédit, dont le taux dépend surtout du marché, l&#x27;assurance emprunteur se tarife sur <b>LA PERSONNE</b>.</p>
+<table><thead><tr>
+<th>Le facteur</th>
+<th>Ce qu&#x27;il recouvre</th>
+</tr></thead><tbody>
+<tr><td><b>L&#x27;ÂGE</b> — le premier, et de loin</td><td>La probabilité de survenance des risques augmente avec l&#x27;âge. Entre 30 et 55 ans, à profil comparable, le tarif peut être multiplié plusieurs fois</td></tr>
+<tr><td>L&#x27;état de santé</td><td>Apprécié par le questionnaire — sous réserve des dispenses vues au module 4</td></tr>
+<tr><td>La profession</td><td>Bâtiment, métiers manuels, travail en hauteur, déplacements fréquents</td></tr>
+<tr><td>Le statut de fumeur</td><td>Il pèse davantage que les clients ne l&#x27;imaginent</td></tr>
+<tr><td>Les activités sportives</td><td>Lorsqu&#x27;elles présentent un risque et sont pratiquées régulièrement</td></tr>
+<tr><td>L&#x27;opération elle-même</td><td>Le montant assuré · la <b>QUOTITÉ</b> retenue (module 1) · la durée du prêt</td></tr>
+</tbody></table>
+<div class="enc ci"><span class="t">UN POINT DE MÉTHODE, ET IL EST IMPORTANT</span><b>CES FACTEURS SE CONSTATENT</b>, <b>ILS NE SE JUGENT PAS</b>. Votre rôle n&#x27;est pas de commenter le mode de vie de votre client, ni de lui donner un conseil sanitaire. C&#x27;est de lui expliquer une mécanique de tarification pour qu&#x27;il ne la découvre pas au dernier moment.</div>
+</div>
+<h2><span class="num">2 ·</span>Les quatre réponses d&#x27;un assureur</h2>
+<div class="carte">
+<div class="quad">
+<div><div class="h">① <b>TARIF STANDARD</b></div>Le risque entre dans les habituels. Aucune majoration</div>
+<div><div class="h">② <b>SURPRIME</b></div>critères Il couvre, à tarif majoré. % du tarif de base — 100 % = tarif doublé — ou par ajout de</div>
+<div><div class="h">③ <b>EXCLUSION</b></div>Exprimée en Il couvre au tarif standard, excluant une pathologie ou un risque points précis</div>
+<div><div class="h">④ <b>AJOURNEMENT OU REFUS</b></div>mais en L&#x27;ajournement diffère la décision. Le refus est définitif pour cet assureur, à ce moment</div>
+</div>
+<div class="enc"><span class="t">SUR L&#x27;EXCLUSION — LE LIEN AVEC LE MODULE 2</span>Une exclusion peut vider une garantie d&#x27;une grande partie de son intérêt. Un <b>RACHAT D&#x27;EXCLUSION</b> est parfois négociable moyennant surprime — mais vérifiez s&#x27;il supprime l&#x27;exclusion ou s&#x27;il la plafonne en durée.</div>
+<div class="enc"><span class="t">SUR LE REFUS — RAPPEL DE LA JOURNÉE 8</span><b>UN REFUS AU PREMIER NIVEAU D&#x27;EXAMEN N&#x27;EST PAS UN REFUS DÉFINITIF</b>. La convention <b>AERAS</b> organise un examen à plusieurs niveaux — c&#x27;est exactement le moment de le rappeler à votre client.</div>
+</div>
+<h2><span class="num">3 ·</span>Ce que cela représente</h2>
+<div class="carte">
+<p>Prêt de 200 000 € sur 20 ans à 3,15 % · prime dégressive sur capital restant dû · valeurs de démonstration, en aucun cas un barème.</p>
+<table><thead><tr>
+<th>Profil</th>
+<th>Coût sur 20 ans</th>
+</tr></thead><tbody>
+<tr><td>30 ans · non-fumeur · métier de bureau</td><td>≈ 2 300 € référence</td></tr>
+<tr><td>45 ans · non-fumeur · métier de bureau</td><td>≈ 5 700 € × 2,5 — du seul fait de l&#x27;âge</td></tr>
+<tr><td>45 ans · fumeur · métier de bureau</td><td>≈ 10 400 € le statut de fumeur a doublé le tarif</td></tr>
+<tr><td>55 ans · fumeur · métier manuel</td><td>≈ 17 300 € × 7,5</td></tr>
+<tr><td>Le même, avec une surprime de 100 %</td><td>≈ 34 600 € × 15</td></tr>
+<tr><td><b>ÉCART TOTAL</b></td><td>32 000 € sur le même prêt</td></tr>
+</tbody></table>
+</div>
+<h2><span class="num">4 ·</span>Et voici pourquoi cela peut faire échouer le dossier</h2>
+<div class="carte">
+<p>Reprenons trois de ces profils, avec un taux nominal de crédit <b>RIGOUREUSEMENT IDENTIQUE</b>.</p>
+<table><thead><tr>
+<th>Profil</th>
+<th>Assurance/mois</th>
+<th>Taux nominal</th>
+<th>TAEG</th>
+</tr></thead><tbody>
+<tr><td>30 ans, non-fumeur</td><td>16,67 €</td><td>3,15 %</td><td>3,37 %</td></tr>
+<tr><td>45 ans, fumeur</td><td>75,00 €</td><td>3,15 %</td><td>3,95 %</td></tr>
+<tr><td>Risque aggravé, surprime</td><td>250,00 €</td><td>3,15 %</td><td>5,63 %</td></tr>
+</tbody></table>
+<div class="enc"><span class="t">REGARDEZ BIEN LA COLONNE DU MILIEU</span><b>LE TAUX NOMINAL N&#x27;A PAS BOUGÉ D&#x27;UN CENTIÈME</b>. 3,15 % dans les trois cas. Mais le TAEG a pris plus de <b>DEUX POINTS</b>, uniquement à cause de l&#x27;assurance.</div>
+<p>Rappel de la journée 6 : c&#x27;est <b>LE TAEG</b> qui se compare au <b>TAUX D&#x27;USURE</b>. Un TAEG qui franchit le seuil rend le prêt illégal — et le dossier est refusé.</p>
+</div>
+<h2>Sur les dossiers à risque aggravé, ce n&#x27;est pas la solvabilité qui bloque. C&#x27;est l&#x27;assurance.</h2>
+<div class="carte">
+<p>Le client est parfaitement capable de rembourser. C&#x27;est le taux qui est devenu illégal.</p>
+</div>
+<h2><span class="num">5 ·</span>Vos quatre leviers</h2>
+<div class="carte">
+<ol class="q">
+<li>Le levier Ce qu&#x27;il permet</li>
+<li><b>LA DÉLÉGATION</b> module 3 Les assureurs individuels tarifent au cas par cas : un profil mal traité chez l&#x27;un peut l&#x27;être mieux chez l&#x27;autre</li>
+<li><b>LA CONVENTION AERAS</b> journée 8 Examen à plusieurs niveaux et <b>MÉCANISME D&#x27;ÉCRÊTEMENT</b> plafonnant les surprimes sous un certain seuil de revenus — c&#x27;est exactement la situation visée</li>
+<li><b>LA DISPENSE DE QUESTIONNAIRE</b> module 4 Sur les dossiers proches des seuils — 200 000 € par emprunteur, remboursement avant 60 ans — un ajustement de montage peut tout changer : ni surprime, ni exclusion fondées sur la santé</li>
+<li><b>LA QUOTITÉ</b> module 1 Sur un couple dont l&#x27;un présente un risque aggravé, un rééquilibrage peut réduire sensiblement le coût — à condition que le client comprenne la moindre couverture qu&#x27;il accepte</li>
+</ol>
+</div>
+<h2><span class="num">6 ·</span>L&#x27;entretien — et ce qu&#x27;il ne faut pas dire</h2>
+<div class="carte">
+<div class="duo">
+<div><div class="h"><b>CE QU&#x27;IL FAUT FAIRE</b></div>Aborder le sujet TÔT, dès la découverte — et non au moment de l&#x27;offre Expliquer que la tarification dépend de facteurs personnels Prévenir que les délais peuvent s&#x27;allonger</div>
+<div><div class="h"><b>CE QU&#x27;IL NE FAUT PAS FAIRE</b></div>Promettre un tarif Commenter le mode de vie du client Dire « ne vous inquiétez pas, ça va passer » — formule proscrite de la journée 8</div>
+</div>
+<div class="enc"><span class="t">LA FORMULE JUSTE — CELLE DE LA JOURNÉE 8</span>« Il existe un dispositif qui va organiser un examen approfondi de votre dossier. » Rien de plus, rien de moins.</div>
+<div class="enc"><span class="t">À RETENIR</span>• L&#x27;âge est le premier facteur de tarification, et de loin. • Quatre réponses de l&#x27;assureur : tarif standard · surprime · exclusion · ajournement ou refus. • Une surprime de 100 % signifie un tarif doublé. • Un refus n&#x27;est pas définitif : il l&#x27;est pour cet assureur, à ce moment. • L&#x27;assurance entre dans le TAEG, et le TAEG se compare au taux d&#x27;usure. • Le TAEG peut passer de 3,37 % à 5,63 % <b>SANS QUE LE TAUX NOMINAL NE BOUGE</b>. • Formule proscrite : « ne vous inquiétez pas, ça va passer ». Sources vérifiées au 20 août 2026. Facteurs de tarification (âge, état de santé, profession, statut de fumeur, activités sportives, caractéristiques de l&#x27;opération) et réponses de l&#x27;assureur au risque (tarif standard, surprime, exclusion, ajournement ou refus, modalités d&#x27;expression de la surprime) : sources professionnelles concordantes. Rappels de la journée 6 (l&#x27;assurance entre dans le TAEG ; le TAEG se compare au taux d&#x27;usure publié trimestriellement), de la journée 8, module 6 (convention <b>AERAS</b>, examen à plusieurs niveaux, mécanisme d&#x27;écrêtement, formule proscrite) et des modules 1 à 4 de cette journée. Arrêté du 18 juillet 2022, annexe A, section A.4. Les calculs ont été effectués et vérifiés en interne, pour un prêt de 200 000 € sur 240 mois à 3,15 %, avec prime dégressive sur capital restant dû et calcul du TAEG par résolution numérique. <b>RÉSERVES</b> : les taux et surprimes utilisés sont des <b>VALEURS DE DÉMONSTRATION</b>, choisies pour rendre les ordres de grandeur lisibles — ils ne reflètent aucun tarif de marché et ne constituent en aucun cas un barème ; les seuils du taux d&#x27;usure, publiés trimestriellement, ne sont pas chiffrés ici (voir la journée 6) ; le montant de l&#x27;écrêtement <b>AERAS</b> et le seuil de revenus qui l&#x27;ouvre ne sont pas chiffrés (voir la journée 8, module 6, et vérifier la version en vigueur de la convention).</div>
+</div>
+<footer>TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</footer>
+</div></body></html>
